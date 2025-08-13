@@ -1,0 +1,601 @@
+@import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Background Colors */
+  --background: hsl(0, 0%, 100%);
+  --foreground: hsl(210, 25%, 7.8431%);
+  
+  /* Game-specific colors */
+  --neon-blue: hsl(190, 100%, 50%);
+  --dark-blue: hsl(210, 100%, 20%);
+  --darker-blue: hsl(210, 100%, 35%);
+  --light-cyan: hsl(180, 100%, 80%);
+  --success-green: hsl(120, 100%, 65%);
+  --error-red: hsl(350, 100%, 60%);
+  
+  /* Card and surface colors */
+  --card: hsl(180, 6.6667%, 97.0588%);
+  --card-foreground: hsl(210, 25%, 7.8431%);
+  --popover: hsl(0, 0%, 100%);
+  --popover-foreground: hsl(210, 25%, 7.8431%);
+  
+  /* Component colors */
+  --primary: hsl(203.8863, 88.2845%, 53.1373%);
+  --primary-foreground: hsl(0, 0%, 100%);
+  --secondary: hsl(210, 25%, 7.8431%);
+  --secondary-foreground: hsl(0, 0%, 100%);
+  --muted: hsl(240, 1.9608%, 90%);
+  --muted-foreground: hsl(210, 25%, 7.8431%);
+  --accent: hsl(211.5789, 51.3514%, 92.7451%);
+  --accent-foreground: hsl(203.8863, 88.2845%, 53.1373%);
+  --destructive: hsl(356.3033, 90.5579%, 54.3137%);
+  --destructive-foreground: hsl(0, 0%, 100%);
+  --border: hsl(201.4286, 30.4348%, 90.9804%);
+  --input: hsl(200, 23.0769%, 97.4510%);
+  --ring: hsl(202.8169, 89.1213%, 53.1373%);
+  
+  /* Font settings */
+  --font-sans: 'Tajawal', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  --font-serif: Georgia, serif;
+  --font-mono: Menlo, monospace;
+  --radius: 1.3rem;
+}
+
+.dark {
+  --background: hsl(0, 0%, 0%);
+  --foreground: hsl(200, 6.6667%, 91.1765%);
+  --card: hsl(228, 9.8039%, 10%);
+  --card-foreground: hsl(0, 0%, 85.0980%);
+  --popover: hsl(0, 0%, 0%);
+  --popover-foreground: hsl(200, 6.6667%, 91.1765%);
+  --primary: hsl(203.7736, 87.6033%, 52.5490%);
+  --primary-foreground: hsl(0, 0%, 100%);
+  --secondary: hsl(195.0000, 15.3846%, 94.9020%);
+  --secondary-foreground: hsl(210, 25%, 7.8431%);
+  --muted: hsl(0, 0%, 9.4118%);
+  --muted-foreground: hsl(210, 3.3898%, 46.2745%);
+  --accent: hsl(205.7143, 70%, 7.8431%);
+  --accent-foreground: hsl(203.7736, 87.6033%, 52.5490%);
+  --destructive: hsl(356.3033, 90.5579%, 54.3137%);
+  --destructive-foreground: hsl(0, 0%, 100%);
+  --border: hsl(210, 5.2632%, 14.9020%);
+  --input: hsl(207.6923, 27.6596%, 18.4314%);
+  --ring: hsl(202.8169, 89.1213%, 53.1373%);
+}
+
+@layer base {
+  * {
+    @apply border-border;
+    box-sizing: border-box;
+  }
+
+  body {
+    @apply font-sans antialiased;
+    background: linear-gradient(135deg, hsl(225, 100%, 8%), hsl(225, 78%, 29%));
+    color: hsl(180, 100%, 92%);
+    direction: rtl;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+@layer components {
+  /* Game Container */
+  .app-container {
+    background: hsla(225, 68%, 10%, 0.85);
+    border-radius: 18px;
+    padding: 25px 20px;
+    width: 100%;
+    max-width: 480px;
+    box-shadow: 
+      0 0 10px hsla(190, 100%, 50%, 0.53),
+      0 0 30px hsla(190, 100%, 75%, 0.4),
+      0 0 60px hsla(190, 100%, 94%, 0.2);
+    user-select: none;
+  }
+
+  /* Header */
+  .game-title {
+    font-weight: 900;
+    font-size: 2.4rem;
+    text-align: center;
+    margin-bottom: 25px;
+    color: var(--neon-blue);
+    text-shadow:
+      0 0 10px hsla(190, 100%, 50%, 0.8),
+      0 0 20px hsla(190, 100%, 60%, 0.73),
+      0 0 30px hsla(190, 80%, 55%, 0.8);
+  }
+
+  /* Word Display */
+  .word-box {
+    background: linear-gradient(145deg, var(--dark-blue), var(--darker-blue));
+    padding: 18px 48px;
+    border-radius: 60px;
+    font-size: 2.5rem;
+    font-weight: 900;
+    letter-spacing: 0.18em;
+    color: var(--light-cyan);
+    text-shadow: 0 0 20px hsla(190, 100%, 60%, 0.67);
+    user-select: none;
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+    box-shadow: 0 0 25px hsla(190, 100%, 60%, 0.6);
+    transition: background 0.4s ease;
+  }
+
+  /* Game Input */
+  .game-input {
+    width: 100%;
+    max-width: 400px;
+    font-size: 1.3rem;
+    padding: 12px 20px;
+    border-radius: 40px;
+    border: none;
+    outline: none;
+    text-align: center;
+    font-weight: 700;
+    color: var(--dark-blue);
+    background: var(--light-cyan);
+    box-shadow:
+      inset 0 0 12px hsla(190, 100%, 60%, 0.53),
+      0 0 12px hsla(190, 100%, 60%, 0.73);
+    transition: box-shadow 0.3s ease;
+  }
+
+  .game-input:focus {
+    box-shadow:
+      inset 0 0 18px hsla(190, 100%, 65%, 0.8),
+      0 0 18px hsla(190, 100%, 65%, 0.8);
+  }
+
+  .game-input:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  /* Control Buttons */
+  .btn-main {
+    background: linear-gradient(135deg, hsl(203, 100%, 60%), hsl(190, 100%, 60%));
+    border: none;
+    padding: 10px 22px;
+    font-weight: 700;
+    font-size: 1.1rem;
+    border-radius: 40px;
+    color: hsl(210, 100%, 15%);
+    box-shadow:
+      0 0 15px hsla(190, 100%, 60%, 0.8),
+      inset 0 -3px 10px hsla(203, 100%, 40%, 0.67);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    user-select: none;
+    min-width: 110px;
+    text-align: center;
+    position: relative;
+  }
+
+  .btn-main:hover,
+  .btn-main:focus {
+    background: linear-gradient(135deg, hsl(203, 100%, 70%), hsl(190, 100%, 70%));
+    transform: scale(1.05);
+    outline: none;
+  }
+
+  .btn-gradient {
+    background: linear-gradient(135deg, hsl(203, 100%, 60%), hsl(190, 100%, 60%));
+    border: none;
+    padding: 12px 25px;
+    font-weight: 700;
+    border-radius: 40px;
+    color: hsl(210, 100%, 15%);
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .btn-gradient:hover {
+    background: linear-gradient(135deg, hsl(203, 100%, 70%), hsl(190, 100%, 70%));
+    transform: scale(1.05);
+  }
+
+  .btn-gradient:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  .btn-cancel {
+    background: linear-gradient(135deg, hsl(0, 0%, 40%), hsl(0, 0%, 50%));
+    border: none;
+    padding: 10px 20px;
+    font-weight: 700;
+    border-radius: 8px;
+    color: white;
+    cursor: pointer;
+  }
+
+  .btn-confirm {
+    background: linear-gradient(135deg, hsl(203, 100%, 60%), hsl(190, 100%, 60%));
+    border: none;
+    padding: 10px 20px;
+    font-weight: 700;
+    border-radius: 8px;
+    color: hsl(210, 100%, 15%);
+    cursor: pointer;
+  }
+
+  /* Notification Badge */
+  .notification-badge {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background: var(--error-red);
+    color: white;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    font-size: 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    animation: pulse 2s infinite;
+  }
+
+  /* Leaderboard */
+  .leaderboard-container {
+    background: hsla(210, 100%, 25%, 0.8);
+    border-radius: 14px;
+    padding: 12px 18px;
+    box-shadow: 0 0 25px hsla(190, 100%, 60%, 0.8);
+    max-height: 280px;
+    overflow-y: auto;
+  }
+
+  .leaderboard-title {
+    margin: 0 0 12px 0;
+    color: var(--neon-blue);
+    font-weight: 800;
+  }
+
+  .leaderboard-item {
+    padding: 6px 8px;
+    font-weight: 700;
+    border-bottom: 1px solid hsla(203, 100%, 40%, 0.33);
+    cursor: default;
+    transition: color 0.3s ease;
+  }
+
+  /* Tab Buttons */
+  .tab-button {
+    background: linear-gradient(135deg, hsl(203, 100%, 60%), hsl(190, 100%, 60%));
+    border: none;
+    padding: 8px 16px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    border-radius: 20px;
+    color: hsl(210, 100%, 15%);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin: 0 4px;
+  }
+
+  .tab-button.active {
+    background: linear-gradient(135deg, hsl(203, 100%, 70%), hsl(190, 100%, 70%));
+    transform: scale(1.05);
+  }
+
+  /* Team Members */
+  .team-member {
+    background: hsla(210, 100%, 25%, 0.8);
+    border-radius: 8px;
+    padding: 8px 12px;
+    margin: 4px;
+    display: inline-block;
+    font-size: 0.9rem;
+    border: 2px solid transparent;
+  }
+
+  .team-member.team-a { 
+    border-color: var(--error-red); 
+  }
+  
+  .team-member.team-b { 
+    border-color: var(--neon-blue); 
+  }
+
+  /* Vote Options */
+  .vote-option {
+    background: linear-gradient(135deg, hsl(210, 100%, 25%), hsl(210, 78%, 35%));
+    border: 2px solid transparent;
+    border-radius: 12px;
+    padding: 12px;
+    margin: 8px 0;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+  }
+
+  .vote-option:hover {
+    border-color: var(--neon-blue);
+    transform: translateY(-2px);
+  }
+
+  .vote-option.selected {
+    border-color: var(--neon-blue);
+    background: linear-gradient(135deg, hsl(210, 78%, 35%), hsl(203, 100%, 60%));
+  }
+
+  /* Answer Display */
+  .answer-display {
+    background: hsla(210, 100%, 22%, 0.8);
+    border-radius: 12px;
+    padding: 10px;
+    width: 100%;
+    max-width: 400px;
+    font-size: 0.95rem;
+    color: var(--light-cyan);
+    margin-top: 10px;
+    box-shadow: 0 0 10px hsla(190, 100%, 60%, 0.53);
+  }
+
+  /* Modal Styles */
+  .modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: hsla(0, 0%, 0%, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease;
+  }
+
+  .modal-overlay.open {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .modal-content {
+    background: linear-gradient(145deg, var(--dark-blue), var(--darker-blue));
+    border-radius: 16px;
+    padding: 25px;
+    width: 90%;
+    max-width: 450px;
+    max-height: 80vh;
+    overflow-y: auto;
+    box-shadow: 
+      0 0 25px hsla(190, 100%, 60%, 0.8),
+      inset 0 0 40px hsla(203, 100%, 40%, 0.67);
+    color: var(--light-cyan);
+  }
+
+  /* Chat Styles */
+  .chat-container {
+    position: fixed;
+    top: 10%;
+    left: 50%;
+    transform: translateX(-50%) translateY(0);
+    width: 100%;
+    max-width: 480px;
+    max-height: 60vh;
+    background: hsla(225, 68%, 10%, 0.95);
+    border-radius: 14px;
+    box-shadow:
+      0 0 30px hsla(190, 100%, 60%, 0.67),
+      inset 0 0 40px hsla(190, 100%, 60%, 0.53);
+    display: flex;
+    flex-direction: column;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease;
+    z-index: 9999;
+  }
+
+  .chat-container.open {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  .chat-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--dark-blue);
+    padding: 10px 15px;
+    border-radius: 14px 14px 0 0;
+    color: var(--light-cyan);
+    font-weight: 700;
+    font-size: 1.25rem;
+    user-select: none;
+  }
+
+  .chat-header button {
+    background: none;
+    border: none;
+    color: var(--light-cyan);
+    font-size: 1.3rem;
+    cursor: pointer;
+    transition: color 0.2s ease;
+  }
+
+  .chat-header button:hover,
+  .chat-header button:focus {
+    color: var(--neon-blue);
+    outline: none;
+  }
+
+  .chat-messages {
+    flex: 1 1 auto;
+    padding: 10px 15px;
+    overflow-y: auto;
+    color: hsl(180, 100%, 85%);
+    font-size: 1rem;
+    line-height: 1.3;
+    user-select: text;
+  }
+
+  .chat-message { 
+    margin-bottom: 8px; 
+    word-break: break-word; 
+  }
+  
+  .chat-system-message { 
+    font-style: italic; 
+    color: var(--success-green); 
+    text-align: center; 
+    user-select: none; 
+  }
+  
+  .chat-name { 
+    font-weight: 800; 
+    color: var(--neon-blue); 
+    margin-left: 6px; 
+    user-select: text; 
+  }
+
+  .chat-form {
+    padding: 10px 15px;
+    border-top: 1px solid hsl(203, 100%, 40%);
+  }
+
+  .chat-input {
+    flex: 1;
+    padding: 8px 12px;
+    border-radius: 8px;
+    background: var(--darker-blue);
+    color: var(--light-cyan);
+    border: none;
+    outline: none;
+  }
+
+  .btn-send {
+    background: linear-gradient(135deg, hsl(203, 100%, 60%), hsl(190, 100%, 60%));
+    border: none;
+    padding: 8px 16px;
+    font-weight: 700;
+    border-radius: 8px;
+    color: hsl(210, 100%, 15%);
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .btn-send:hover {
+    background: linear-gradient(135deg, hsl(203, 100%, 70%), hsl(190, 100%, 70%));
+  }
+
+  /* Instructions */
+  .instructions-title {
+    margin-top: 0;
+    margin-bottom: 15px;
+    text-align: center;
+    font-size: 1.7rem;
+    font-weight: 900;
+    color: var(--neon-blue);
+    text-shadow:
+      0 0 10px hsla(190, 100%, 50%, 0.8),
+      0 0 20px hsla(190, 100%, 60%, 0.73);
+  }
+
+  .instructions-content {
+    font-size: 1.15rem;
+    line-height: 1.5;
+    user-select: text;
+    max-height: 300px;
+    overflow-y: auto;
+  }
+
+  .instructions-content ol {
+    padding-inline-start: 20px;
+    margin: 0 0 20px 0;
+    color: var(--light-cyan);
+  }
+
+  .instructions-content li {
+    margin-bottom: 8px;
+  }
+
+  .close-instructions-btn {
+    display: block;
+    margin: 0 auto;
+    background: linear-gradient(135deg, hsl(203, 100%, 60%), hsl(190, 100%, 60%));
+    border: none;
+    color: hsl(210, 100%, 15%);
+    font-weight: 700;
+    padding: 12px 25px;
+    border-radius: 40px;
+    cursor: pointer;
+    box-shadow:
+      0 0 15px hsla(190, 100%, 60%, 0.8),
+      inset 0 -3px 10px hsla(203, 100%, 40%, 0.67);
+    transition: all 0.3s ease;
+  }
+
+  .close-instructions-btn:hover,
+  .close-instructions-btn:focus {
+    background: linear-gradient(135deg, hsl(203, 100%, 70%), hsl(190, 100%, 70%));
+    transform: scale(1.05);
+    outline: none;
+  }
+
+  /* Special Words */
+  .special-word { 
+    font-weight: 900; 
+    user-select: text; 
+  }
+  
+  .special-word.shake { 
+    animation: shake 0.6s ease infinite alternate; 
+  }
+
+  /* Color Classes */
+  .text-neon-blue { color: var(--neon-blue); }
+  .text-light-cyan { color: var(--light-cyan); }
+  .text-success-green { color: var(--success-green); }
+  .text-error-red { color: var(--error-red); }
+}
+
+@keyframes pulse {
+  0%, 100% { 
+    transform: scale(1); 
+  }
+  50% { 
+    transform: scale(1.1); 
+  }
+}
+
+@keyframes shake {
+  0% { transform: translateX(0) }
+  25% { transform: translateX(-2px) }
+  50% { transform: translateX(2px) }
+  75% { transform: translateX(-2px) }
+  100% { transform: translateX(0) }
+}
+
+/* Scrollbar Styles */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: hsla(210, 100%, 20%, 0.5);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--neon-blue);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsla(190, 100%, 60%, 0.8);
+}
